@@ -25,6 +25,19 @@ app.get(['/old-page', '/old-page.html'], (req, res) => {
     res.redirect(301, '/new-page.html');
 });
 
+// Route handlers
+app.get(['/hello', '/hello.html'],
+    // Handler 1 — middleware-like
+    (req, res, next) => {
+        console.log('attempted to load hello.html');
+        next();
+    },
+    // Handler 2 — send response
+    (req, res) => {
+        res.send('Hello Mate!');
+    }
+);
+
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 });
