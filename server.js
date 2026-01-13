@@ -12,6 +12,14 @@ const PORT = process.env.PORT || 3500;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// built-in middlewate to handle urlencoded data
+// in other words, form data:
+// `content-type: application/x-www-form-urlencoded`
+app.use(express.urlencoded({ extended: false }));
+
+// built-in middleware for json
+app.use(express.json());
+
 app.get(['/', '/index.html', '/index'], (req, res) => {
     // res.sendFile('./views/index.html', { root: __dirname });
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
