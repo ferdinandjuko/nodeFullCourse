@@ -14,6 +14,10 @@ const __dirname = path.dirname(__filename);
 
 // custom middleware logger
 app.use((req, res, next) => {
+    logEvents(
+        `${req.method}\t${req.url}\t${req.headers.origin}\t${req.url}`,
+        'reqLog.log'
+    );
     console.log(`${req.method} ${req.path}`);
     next();
 });
