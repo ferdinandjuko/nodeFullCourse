@@ -24,10 +24,16 @@ const logEvents = async (message, logName) => {
     }
 }
 
+const logger = (req, res, next) => {
+    logEvents(`${req.method}\t${req.headers.origin}\t${req.url}`, 'reqLog.log');
+    console.log(`${req.method} ${req.path}`);
+    next();
+}
+
 // exit on uncaught errors
 process.on('uncaughtException', err => {
     console.error('There was an uncaught error', err);
     process.exit(1);
 });
 
-export default logEvents;
+export { logger, logEvents };
