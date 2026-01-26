@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { logger } from './middleware/logEvents.js';
 
 import { EventEmitter } from 'events';
+import { callbackify } from 'util';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -17,7 +18,17 @@ app.use(logger);
 
 // Cross Origin Resource Sharing
 const whitelist = ['https://www.yoursite.com', 'http:127.0.0.1:5500', 'http://127.0.0.1:3500'];
-app.use(cors());
+const corsOptions = {
+    origin: (origin, callBack) => {
+        if (whitelist.indexOf(origin) !== -1) {
+            callbacki(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 
 // built-in middlewate to handle urlencoded data
 // in other words, form data:
