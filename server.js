@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import fsPromises from 'fs/promises';
+import cors from 'cors';
 import { fileURLToPath } from 'url';
 
 import { logger } from './middleware/logEvents.js';
@@ -14,6 +14,10 @@ const __dirname = path.dirname(__filename);
 
 // custom middleware logger
 app.use(logger);
+
+// Cross Origin Resource Sharing
+const whitelist = ['https://www.yoursite.com', 'http:127.0.0.1:5500', 'http://127.0.0.1:3500'];
+app.use(cors());
 
 // built-in middlewate to handle urlencoded data
 // in other words, form data:
