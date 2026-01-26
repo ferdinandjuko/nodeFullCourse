@@ -3,7 +3,7 @@ import path from 'path';
 import fsPromises from 'fs/promises';
 import { fileURLToPath } from 'url';
 
-import logEvents from './middleware/logEvents.js';
+import { logger } from './middleware/logEvents.js';
 
 import { EventEmitter } from 'events';
 
@@ -13,14 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // custom middleware logger
-app.use((req, res, next) => {
-    logEvents(
-        `${req.method}\t${req.url}\t${req.headers.origin}\t${req.url}`,
-        'reqLog.log'
-    );
-    console.log(`${req.method} ${req.path}`);
-    next();
-});
+app.use(logger);
 
 // built-in middlewate to handle urlencoded data
 // in other words, form data:
