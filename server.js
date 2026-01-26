@@ -20,10 +20,10 @@ app.use(logger);
 const whitelist = ['https://www.yoursite.com', 'http:127.0.0.1:5500', 'http://127.0.0.1:3500'];
 const corsOptions = {
     origin: (origin, callBack) => {
-        if (whitelist.indexOf(origin) !== -1) {
-            callbacki(null, true)
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
+            callBack(null, true)
         } else {
-            callback(new Error('Not allowed by CORS'));
+            callBack(new Error('Not allowed by CORS'));
         }
     },
     optionsSuccessStatus: 200
@@ -86,6 +86,11 @@ app.get(['/chain', '/chain.html'], one, two, three);
 
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+});
+
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send(err.message);
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
