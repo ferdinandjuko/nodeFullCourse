@@ -4,9 +4,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 
 import { logger } from './middleware/logEvents.js';
-
-import { EventEmitter } from 'events';
-import { callbackify } from 'util';
+import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -88,9 +86,6 @@ app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 });
 
-app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send(err.message);
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
