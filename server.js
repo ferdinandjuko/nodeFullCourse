@@ -45,10 +45,6 @@ app.use('/subdir', express.static(path.join(__dirname, '/public')));
 app.use('/', rootRouter);
 app.use('/subdir', subdirRouter);
 
-app.get(['/new-page', '/new-page.html'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'new-page.html'));
-});
-
 app.get(['/old-page', '/old-page.html'], (req, res) => {
     res.redirect(301, '/new-page.html');
 });
