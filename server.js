@@ -45,36 +45,6 @@ app.use('/subdir', express.static(path.join(__dirname, '/public')));
 app.use('/', rootRouter);
 app.use('/subdir', subdirRouter);
 
-// Route handlers
-app.get(['/hello', '/hello.html'],
-    // Handler 1 — middleware-like
-    (req, res, next) => {
-        console.log('attempted to load hello.html');
-        next();
-    },
-    // Handler 2 — send response
-    (req, res) => {
-        res.send('Hello Mate!');
-    }
-);
-
-const one = (req, res, next) => {
-    console.log('One');
-    next();
-}
-
-const two = (req, res, next) => {
-    console.log('Two');
-    next();
-}
-
-const three = (req, res) => {
-    console.log('Three');
-    res.send('Finished');
-}
-
-app.get(['/chain', '/chain.html'], one, two, three);
-
 app.use((req, res) => {
     res.status(404);
     if (req.accepts('html')) {
