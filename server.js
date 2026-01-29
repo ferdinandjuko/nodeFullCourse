@@ -45,10 +45,6 @@ app.use('/subdir', express.static(path.join(__dirname, '/public')));
 app.use('/', rootRouter);
 app.use('/subdir', subdirRouter);
 
-app.get(['/old-page', '/old-page.html'], (req, res) => {
-    res.redirect(301, '/new-page.html');
-});
-
 // Route handlers
 app.get(['/hello', '/hello.html'],
     // Handler 1 — middleware-like
