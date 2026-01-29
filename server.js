@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { logger } from './middleware/logEvents.js';
 import errorHandler from './middleware/errorHandler.js';
 import subdirRouter from './routes/subdir.js';
+import rootRouter from './routes/root.js';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -41,12 +42,8 @@ app.use(express.json());
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use('/subdir', express.static(path.join(__dirname, '/public')));
 
+app.use('/', rootRouter);
 app.use('/subdir', subdirRouter);
-
-app.get(['/', '/index.html', '/index'], (req, res) => {
-    // res.sendFile('./views/index.html', { root: __dirname });
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
-})
 
 app.get(['/new-page', '/new-page.html'], (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'new-page.html'));
