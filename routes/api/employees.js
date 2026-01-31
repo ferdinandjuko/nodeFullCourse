@@ -13,6 +13,12 @@ data.employees = JSON.parse(await fsPromises.readFile(path.join(__dirname, '..',
 router.route('/')
     .get((req, res) => {
         res.json(data.employees);
+    })
+    .post((req, res) => {
+        res.json({
+            "firstname": req.body.firstname,
+            "lastname": req.body.lastname
+        })
     });
 
 export default router;
