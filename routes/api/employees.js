@@ -25,6 +25,9 @@ router.route('/')
             "firstname": req.body.firstname,
             "lastname": req.body.lastname
         })
+    })
+    .delete((req, res) => {
+        res.json({ "id": req.body.id })
     });
 
 export default router;
