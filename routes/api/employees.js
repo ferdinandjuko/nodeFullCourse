@@ -12,12 +12,7 @@ data.employees = JSON.parse(await fsPromises.readFile(path.join(__dirname, '..',
 
 router.route('/')
     .get()
-    .post((req, res) => {
-        res.json({
-            "firstname": req.body.firstname,
-            "lastname": req.body.lastname
-        })
-    })
+    .post()
     .put((req, res) => {
         res.json({
             "firstname": req.body.firstname,

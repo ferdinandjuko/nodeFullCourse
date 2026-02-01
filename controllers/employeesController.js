@@ -13,3 +13,10 @@ data.employees = JSON.parse(await fsPromises.readFile(path.join(__dirname, '..',
 const getAllEmployees = (req, res) => {
     res.json(data.employees);
 }
+
+const createNewEmployee = (req, res) => {
+    res.json({
+        "firstname": req.body.firstname,
+        "lastname": req.body.lastname
+    })
+}
