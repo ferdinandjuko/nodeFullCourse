@@ -11,9 +11,7 @@ const data = {};
 data.employees = JSON.parse(await fsPromises.readFile(path.join(__dirname, '..', '..', 'data', 'employees.json')));
 
 router.route('/')
-    .get((req, res) => {
-        res.json(data.employees);
-    })
+    .get()
     .post((req, res) => {
         res.json({
             "firstname": req.body.firstname,
