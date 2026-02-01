@@ -19,6 +19,12 @@ router.route('/')
             "firstname": req.body.firstname,
             "lastname": req.body.lastname
         })
+    })
+    .put((req, res) => {
+        res.json({
+            "firstname": req.body.firstname,
+            "lastname": req.body.lastname
+        })
     });
 
 export default router;
