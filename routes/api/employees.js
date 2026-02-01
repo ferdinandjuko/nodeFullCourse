@@ -30,4 +30,8 @@ router.route('/')
         res.json({ "id": req.body.id })
     });
 
+router.route('/:id')
+    .get((req, res) => {
+        res.json({ "id": req.params.id })
+    });
 export default router;
