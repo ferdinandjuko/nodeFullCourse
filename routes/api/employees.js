@@ -13,12 +13,7 @@ data.employees = JSON.parse(await fsPromises.readFile(path.join(__dirname, '..',
 router.route('/')
     .get()
     .post()
-    .put((req, res) => {
-        res.json({
-            "firstname": req.body.firstname,
-            "lastname": req.body.lastname
-        })
-    })
+    .put()
     .delete((req, res) => {
         res.json({ "id": req.body.id })
     });
