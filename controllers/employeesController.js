@@ -27,3 +27,7 @@ const updateEmployee = (req, res) => {
         "lastname": req.body.lastname
     });
 }
+
+const deleteEmployee = (req, res) => {
+    res.json({ "id": req.body.id })
+}
