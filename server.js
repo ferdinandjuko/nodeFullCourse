@@ -7,6 +7,7 @@ import { logger } from './middleware/logEvents.js';
 import errorHandler from './middleware/errorHandler.js';
 import subdirRouter from './routes/subdir.js';
 import rootRouter from './routes/root.js';
+import corsOptions from './config/corsOptions.js';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -17,22 +18,9 @@ const __dirname = path.dirname(__filename);
 app.use(logger);
 
 // Cross Origin Resource Sharing
-const whitelist = ['https://www.yoursite.com', 'http:127.0.0.1:5500', 'http://127.0.0.1:3500'];
-const corsOptions = {
-    origin: (origin, callBack) => {
-        if (whitelist.indexOf(origin) !== -1 || !origin) {
-            callBack(null, true)
-        } else {
-            callBack(new Error('Not allowed by CORS'));
-        }
-    },
-    optionsSuccessStatus: 200
-}
 app.use(cors(corsOptions));
 
-// built-in middlewate to handle urlencoded data
-// in other words, form data:
-// `content-type: application/x-www-form-urlencoded`
+// built-in middlewate to handle urlencoded form data
 app.use(express.urlencoded({ extended: false }));
 
 // built-in middleware for json
@@ -42,6 +30,7 @@ app.use(express.json());
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use('/subdir', express.static(path.join(__dirname, '/public')));
 
+// routes handling
 app.use('/', rootRouter);
 app.use('/subdir', subdirRouter);
 
