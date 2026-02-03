@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 
 import { logger } from './middleware/logEvents.js';
 import errorHandler from './middleware/errorHandler.js';
-import subdirRouter from './routes/subdir.js';
 import rootRouter from './routes/root.js';
 import corsOptions from './config/corsOptions.js';
 
