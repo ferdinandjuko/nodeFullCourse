@@ -28,11 +28,9 @@ app.use(express.json());
 
 // serve static file
 app.use('/', express.static(path.join(__dirname, '/public')));
-app.use('/subdir', express.static(path.join(__dirname, '/public')));
 
 // routes handling
 app.use('/', rootRouter);
-app.use('/subdir', subdirRouter);
 
 app.use((req, res) => {
     res.status(404);
