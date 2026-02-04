@@ -20,7 +20,7 @@ const createNewEmployee = (req, res) => {
         lastname: req.body.lastname
     }
 
-    if (!newEmployees.firstnane || !newEmployee.lastname) {
+    if (!newEmployee.firstname || !newEmployee.lastname) {
         res.status(400).json({ 'message': 'First and last names are required' });
     }
 
@@ -60,4 +60,10 @@ const getEmployee = (req, res) => {
     res.json(employee);
 }
 
-export { getAllEmployees, createNewEmployee, updateEmployee, deleteEmployee, getEmployee }
+export {
+    getAllEmployees,
+    createNewEmployee,
+    updateEmployee,
+    deleteEmployee,
+    getEmployee
+}
