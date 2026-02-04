@@ -1,13 +1,13 @@
-import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fsPromises from 'fs/promises';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const data = {};
-
-data.employees = JSON.parse(await fsPromises.readFile(path.join(__dirname, '..', 'model', 'employees.json')));
+const data = {
+    employees: JSON.parse(await fsPromises.readFile(path.join(__dirname, '..', 'model', 'employees.json'))),
+    setEmployees: function (data) { this.employees = data; }
+};
 
 const getAllEmployees = (req, res) => {
     res.json(data.employees);
