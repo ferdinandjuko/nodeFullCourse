@@ -29,7 +29,7 @@ const createNewEmployee = (req, res) => {
 }
 
 const updateEmployee = (req, res) => {
-    const employee = data.employees.find(find(emp => emp.id === parseInt(req.body.id)));
+    const employee = data.employees.find(emp => emp.id === parseInt(req.body.id));
     if (!employee) {
         return res.status(400).json({ 'message': `Employee ID ${req.body.id} not found` });
     }
