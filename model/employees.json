@@ -2,13 +2,11 @@
     {
         "id": 1,
         "firstname": "Connie",
-        "lastname": "Schneider",
-        "age": 30
+        "lastname": "Schneider"
     },
     {
         "id": 2,
         "firstname": "Nymeria",
-        "lastname": "Diaken",
-        "age": 25
+        "lastname": "Diaken"
     }
 ]
