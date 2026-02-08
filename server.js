@@ -8,6 +8,7 @@ import errorHandler from './middleware/errorHandler.js';
 import rootRouter from './routes/root.js';
 import corsOptions from './config/corsOptions.js';
 import employeesRouter from './routes/api/employees.js';
+import registerRouter from './routes/api/register.js';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -32,6 +33,7 @@ app.use('/', express.static(path.join(__dirname, '/public')));
 // routes handling
 app.use('/', rootRouter);
 app.use('/employees', employeesRouter);
+app.use('/register', registerRouter);
 
 app.use((req, res) => {
     res.status(404);

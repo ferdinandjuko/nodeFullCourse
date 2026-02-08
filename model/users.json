@@ -1,12 +1,14 @@
 [
     {
-        "username": "Fernand",
-        "email": "fernand@gmail.com",
-        "password": "tewtwrwe54634erwt463534"
+        "username": "walter",
+        "password": "$2b$10$pNVYhutQJ5at8ZzmvqH/o.Oijg9vRP3t6J34hbsM06XEJhlChAIqC"
     },
     {
-        "username": "Manou",
-        "email": "manou@gmail.com",
-        "password": "ytutwrwe54634erwt463534"
+        "username": "Semir",
+        "password": "$2b$10$JoheMExiXAlLokVmWTAaO.NGzd2NEQTyhamJCKNnvoLW8JPrsa/yq"
+    },
+    {
+        "username": "Santatra",
+        "password": "$2b$10$Mds19tD25H63tF53bIQHNezquUKNSOz1BhX1hSkcanF0vRhHCyQNa"
     }
 ]
