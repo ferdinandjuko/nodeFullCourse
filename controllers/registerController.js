@@ -1,21 +1,21 @@
 import fsPromises from 'fs/promises';
-import { fileUrlToPath } from 'url'
+import { fileURLToPath } from 'url'
 import path from 'path';
 import bcrypt from 'bcrypt';
 
-const __filename = fileUrlToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const usersDB = {
     users: JSON.parse(await fsPromises.readFile(path.join(__dirname, '..', 'model', 'users.json'))),
-    setUser: function (data) { this.users = data }
+    setUsers: function (data) { this.users = data }
 }
 
 const handleNewUser = async (req, res) => {
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are erquired' });
     // check for duplicate username in the db
-    const duplicate = usersDB.find(user => user.username === user);
+    const duplicate = usersDB.users.find(user => user.username === user);
     if (duplicate) return res.sendStatus(409); // Conflict
     try {
         // encrypt the password
@@ -34,4 +34,5 @@ const handleNewUser = async (req, res) => {
     }
 }
 
-export default handleNewUser;
+// registerController.js exports:
+export { handleNewUser }  // ← 'handler' without 'r' at the end
