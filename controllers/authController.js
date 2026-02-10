@@ -10,3 +10,10 @@ const usersDB = {
     users: await JOSN.parse(fsPromises.readFile(path.join(__dirname, '..', 'model', 'users.json'))),
     setUsers: function (data) { this.users = data }
 }
+
+const handleLogin = async (req, res) => {
+    const { user, pwd } = req.body;
+    if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password required' });
+}
+
+export { handleLogin };
