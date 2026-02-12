@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const usersDB = {
-    users: await JOSN.parse(fsPromises.readFile(path.join(__dirname, '..', 'model', 'users.json'))),
+    users: JSON.parse(await fsPromises.readFile(path.join(__dirname, '..', 'model', 'users.json'))),
     setUsers: function (data) { this.users = data }
 }
 
@@ -21,6 +21,7 @@ const handleLogin = async (req, res) => {
     // Evaluate password
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
+        // Create JWT
         res.json({ 'success': `User ${user} is logged in` });
     } else {
         res.sendStatus(401); // Unauthorized
