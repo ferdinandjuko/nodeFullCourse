@@ -2,6 +2,9 @@ import fsPromises from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,7 +24,6 @@ const handleLogin = async (req, res) => {
     // Evaluate password
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
-        // Create JWT
         res.json({ 'success': `User ${user} is logged in` });
     } else {
         res.sendStatus(401); // Unauthorized
