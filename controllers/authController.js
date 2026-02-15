@@ -24,6 +24,17 @@ const handleLogin = async (req, res) => {
     // Evaluate password
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
+        // Create JWTs
+        const accessToken = jwt.sign(
+            { "username": foundUser.username },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '30s' }
+        );
+        const refreshToken = jwt.sign(
+            { "username": foundUser.usename },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '1d' }
+        );
         res.json({ 'success': `User ${user} is logged in` });
     } else {
         res.sendStatus(401); // Unauthorized
