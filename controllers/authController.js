@@ -35,6 +35,14 @@ const handleLogin = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
+        // Saving refreshToken with current user
+        const otherUsers = usersDB.users.filter(person => person.username !== user);
+        const currentUser = { ...foundUser, refreshToken };
+        usersDB.setUsers([...otherUsers, currentUser]);
+        await fsPromises.writeFile(
+            path.join(__dirname, '..', 'model', 'users.json'),
+            JSON.stringify(usersDB.users)
+        );
         res.json({ 'success': `User ${user} is logged in` });
     } else {
         res.sendStatus(401); // Unauthorized
