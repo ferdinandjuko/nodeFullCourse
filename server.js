@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
 
 import { logger } from './middleware/logEvents.js';
 import errorHandler from './middleware/errorHandler.js';
@@ -30,6 +31,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // built-in middleware for json
 app.use(express.json());
+
+// middleware for cookies
+app.use(cookieParser());
 
 // serve static file
 app.use('/', express.static(path.join(__dirname, '/public')));
