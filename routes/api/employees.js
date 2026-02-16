@@ -3,14 +3,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 // namespace import (keeps employeesController.xxx usage)
 import * as employeesController from '../../controllers/employeesController.js';
-import verifyJWT from '../../middleware/verifyJWT.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 router.route('/')
-    .get(verifyJWT, employeesController.getAllEmployees)
+    .get(employeesController.getAllEmployees)
     .post(employeesController.createNewEmployee)
     .put(employeesController.updateEmployee)
     .delete(employeesController.deleteEmployee);

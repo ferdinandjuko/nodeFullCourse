@@ -5,11 +5,14 @@ import { fileURLToPath } from 'url';
 
 import { logger } from './middleware/logEvents.js';
 import errorHandler from './middleware/errorHandler.js';
-import rootRouter from './routes/root.js';
+import verifyJWT from './middleware/verifyJWT.js';
+
 import corsOptions from './config/corsOptions.js';
 import employeesRouter from './routes/api/employees.js';
-import registerRouter from './routes/api/register.js';
-import authRouter from './routes/api/auth.js';
+
+import rootRouter from './routes/root.js';
+import registerRouter from './routes/register.js';
+import authRouter from './routes/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -34,8 +37,10 @@ app.use('/', express.static(path.join(__dirname, '/public')));
 // routes handling
 app.use('/', rootRouter);
 app.use('/register', registerRouter);
-app.use('/employees', employeesRouter);
 app.use('/auth', authRouter);
+
+app.use(verifyJWT); // Like waterfall, everything after this line wil use the verified jwt
+app.use('/employees', employeesRouter);
 
 app.use((req, res) => {
     res.status(404);
