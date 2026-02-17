@@ -15,6 +15,9 @@ const usersDB = {
 
 const handleRefreshToken = (req, res) => {
     const cookie = req.cookies;
+    if (!cookie?.jwt) return res.sendStatus(401);
+    console.log(cookies.jwt);
+    const refreshToken = cookie.jwt;
 }
 
 export { handleRefreshToken };
