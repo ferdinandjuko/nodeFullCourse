@@ -21,6 +21,15 @@ const handleRefreshToken = (req, res) => {
 
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
     if (!foundUser) return res.sendStatus(403); // Forbidden
+
+    // Evaluate jwt
+    jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        (err, decoded) => {
+            if (err || foundUser.username !== decoded.username) return res.send.sendStatus(403); // Invalid refreshToken
+        }
+    );
 }
 
 export { handleRefreshToken };
