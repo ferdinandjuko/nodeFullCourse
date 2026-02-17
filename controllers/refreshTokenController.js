@@ -18,6 +18,9 @@ const handleRefreshToken = (req, res) => {
     if (!cookie?.jwt) return res.sendStatus(401);
     console.log(cookies.jwt);
     const refreshToken = cookie.jwt;
+
+    const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
+    if (!foundUser) return res.sendStatus(403); // Forbidden
 }
 
 export { handleRefreshToken };
