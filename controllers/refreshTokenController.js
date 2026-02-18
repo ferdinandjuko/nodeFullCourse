@@ -16,7 +16,7 @@ const usersDB = {
 const handleRefreshToken = (req, res) => {
     const cookie = req.cookies;
     if (!cookie?.jwt) return res.sendStatus(401);
-    console.log(cookies.jwt);
+    console.log(cookie.jwt);
     const refreshToken = cookie.jwt;
 
     const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
@@ -27,7 +27,7 @@ const handleRefreshToken = (req, res) => {
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) => {
-            if (err || foundUser.username !== decoded.username) return res.send.sendStatus(403); // Invalid refreshToken
+            if (err || foundUser.username !== decoded.username) return res.sendStatus(403); // Invalid refreshToken
             const accessToken = jwt.sign(
                 { "username": decoded.username },
                 process.env.ACCESS_TOKEN_SECRET,
