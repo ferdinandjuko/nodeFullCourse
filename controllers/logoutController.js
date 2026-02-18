@@ -16,6 +16,13 @@ const handleLogout = async (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204); // No content
     const refreshToken = cookies.jwt;
+
+    // Is refresh token in DB ?
+    const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
+    if (!foundUser) {
+        res.clearCookie('jwt', { httpOnly: true });
+        return res.sendStatus(204); // Success but No Content
+    }
 }
 
 export { handleLogout };
