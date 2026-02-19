@@ -15,6 +15,7 @@ import rootRouter from './routes/root.js';
 import registerRouter from './routes/register.js';
 import authRouter from './routes/auth.js';
 import refreshRouter from './routes/refresh.js';
+import logoutRouter from './routes/logout.js';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -44,6 +45,7 @@ app.use('/', rootRouter);
 app.use('/register', registerRouter);
 app.use('/auth', authRouter);
 app.use('/refresh', refreshRouter);
+app.use('/logout', logoutRouter);
 
 app.use(verifyJWT); // Like waterfall, everything after this line wil use the verified jwt
 app.use('/employees', employeesRouter);
