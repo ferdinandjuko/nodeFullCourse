@@ -29,6 +29,13 @@ const handleLogout = async (req, res) => {
     const otherUsers = usersDB.users.filter(person => person.refreshToken !== foundUser.refreshToken);
     const currentUser = { ...foundUser, refreshToken: '' };
     usersDB.setUsers([...otherUsers, currentUser]);
+    await fsPromises.writeFile(
+        path.join(__dirname, '..', 'model', 'users.json'),
+        JSON.stringify(usersDB.users)
+    );
+
+    res.clearCookie('jwt', { httpOnly: true }); // Secure: true - Only serves on http
+    res.sendStatus(204);
 }
 
 export { handleLogout };
