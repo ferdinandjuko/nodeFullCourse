@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { logger } from './middleware/logEvents.js';
 import errorHandler from './middleware/errorHandler.js';
 import verifyJWT from './middleware/verifyJWT.js';
+import credentials from './middleware/credentials.js';
 
 import corsOptions from './config/corsOptions.js';
 import employeesRouter from './routes/api/employees.js';
@@ -24,6 +25,10 @@ const __dirname = path.dirname(__filename);
 
 // custom middleware logger
 app.use(logger);
+
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+app.use(credentials);
 
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions));
