@@ -34,7 +34,7 @@ const handleLogout = async (req, res) => {
         JSON.stringify(usersDB.users)
     );
 
-    res.clearCookie('jwt', { httpOnly: true }); // Secure: true - Only serves on http
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true }); // Secure: true - Only serves on http
     res.sendStatus(204);
 }
 
