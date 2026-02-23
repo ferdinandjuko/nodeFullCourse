@@ -25,6 +25,10 @@ const createNewEmployee = (req, res) => {
     }
 
     data.setEmployees([...data.employees, newEmployee]);
+    fsPromises.writeFile(
+        path.join(__dirname, '..', 'model', 'employees.json'),
+        JSON.stringify(data.employees)
+    );
     res.status(201).json(data.employees);
 }
 
