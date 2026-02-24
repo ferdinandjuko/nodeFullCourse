@@ -53,6 +53,10 @@ const deleteEmployee = (req, res) => {
     }
     const filteredArray = data.employees.filter(emp => emp.id !== parseInt(req.body.id));
     data.setEmployees([...filteredArray]);
+    fsPromises.writeFile(
+        path.join(__dirname, '..', 'model', 'employees.json'),
+        JSON.stringify(data.employees)
+    );
     res.json(data.employees);
 }
 
