@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route('/')
     .get(employeesController.getAllEmployees)
-    .post(employeesController.createNewEmployee)
+    .post(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), employeesController.createNewEmployee)
     .put(employeesController.updateEmployee)
     .delete(employeesController.deleteEmployee);
 
