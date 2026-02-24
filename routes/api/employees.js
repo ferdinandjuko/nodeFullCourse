@@ -3,9 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 // namespace import (keeps employeesController.xxx usage)
 import * as employeesController from '../../controllers/employeesController.js';
+import ROLES_LIST from '../../config/roleList.js';
+import verifyRoles from '../../middleware/verifyRoles.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 router.route('/')
