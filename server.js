@@ -5,6 +5,7 @@ import path from 'path';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
 
 import { logger } from './middleware/logEvents.js';
 import errorHandler from './middleware/errorHandler.js';
@@ -12,6 +13,8 @@ import verifyJWT from './middleware/verifyJWT.js';
 import credentials from './middleware/credentials.js';
 
 import corsOptions from './config/corsOptions.js';
+import connectDB from './config/dbConn.js';
+
 import employeesRouter from './routes/api/employees.js';
 
 import rootRouter from './routes/root.js';
@@ -24,6 +27,9 @@ const app = express();
 const PORT = process.env.PORT || 3500;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Connect to MongoDB
+connectDB();
 
 // custom middleware logger
 app.use(logger);
