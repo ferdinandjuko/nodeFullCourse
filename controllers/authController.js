@@ -1,26 +1,18 @@
-import fsPromises from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const usersDB = {
-    users: JSON.parse(await fsPromises.readFile(path.join(__dirname, '..', 'model', 'users.json'))),
-    setUsers: function (data) { this.users = data }
-}
+import User from '../model/User.js';
 
 const handleLogin = async (req, res) => {
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password required' });
 
-    const foundUser = usersDB.users.find(person => person.username === user);
+    const foundUser = await User.findOne({ username: user }).exec();
+    console.log(foundUser);
     if (!foundUser) return res.sendStatus(401); // Unauthorized
 
     // Evaluate password
     const match = await bcrypt.compare(pwd, foundUser.password);
+    const isDev = process.env.NODE_ENV !== 'production';
     if (match) {
         const roles = Object.values(foundUser.roles);
         // Create JWTs
@@ -32,21 +24,15 @@ const handleLogin = async (req, res) => {
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '30s' }
+            { expiresIn: '1m' }
         );
         const refreshToken = jwt.sign(
             { "username": foundUser.username },
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
-        // Saving refreshToken with current user
-        const otherUsers = usersDB.users.filter(person => person.username !== user);
-        const currentUser = { ...foundUser, refreshToken };
-        usersDB.setUsers([...otherUsers, currentUser]);
-        await fsPromises.writeFile(
-            path.join(__dirname, '..', 'model', 'users.json'),
-            JSON.stringify(usersDB.users)
-        );
+        foundUser.refreshToken = refreshToken;
+        await foundUser.save();
         res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 })
         res.json({ accessToken });
     } else {
