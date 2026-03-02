@@ -23,7 +23,11 @@ const handleLogout = async (req, res) => {
     foundUser.refreshToken = '';
     await foundUser.save();
 
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true }); // Secure: true - Only serves on http
+    res.clearCookie('jwt', {
+        httpOnly: true,
+        sameSite: isDev ? 'Lax' : 'None',
+        secure: !isDev ? true : false
+    }); // Secure: true - Only serves on https
     res.sendStatus(204);
 }
 
