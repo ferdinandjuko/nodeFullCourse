@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Schema = mangoose.Schema;
+const Schema = mongoose.Schema;
 
 const employeeSchema = new Schema({
     firstname: {
