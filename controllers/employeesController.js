@@ -1,7 +1,9 @@
 import Employee from '../model/Employee.js';
 
-const getAllEmployees = (req, res) => {
-    res.json(data.employees);
+const getAllEmployees = async (req, res) => {
+    const employees = await Employee.find();
+    if (!employees) return res.status(204).json({ 'message': 'No employees found' });
+    res.json(employees);
 }
 
 const createNewEmployee = (req, res) => {
