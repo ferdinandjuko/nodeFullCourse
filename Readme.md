@@ -3,6 +3,10 @@
 > Node JS - MongoDB with mongoose: Async CRUD
 
 
+[<img src="https://cdn.gomix.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fremix-butoon.svg" width="163px" />](https://glitch.com/edit/#!/import/github.com/ferdinandjuko/nodeFullCourse)
+
+**Deploy by clicking the button above**
+
 ## 🚀 Quick Start
 
 **Prerequisites:** Node.js (via nvm), npm
